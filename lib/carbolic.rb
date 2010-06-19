@@ -37,7 +37,7 @@ class Carbolic
 
       def log_method(a=[], vars=[], args=[]) 
         label_vars = vars.map{|x| "%s: %s" % [x,x_inspect(self.instance_variable_get(x))]}
-        line = "in, %s, " % (a + label_vars).flatten.join(', ')
+        line = "%s, in, %s, " % [self.class, (a + label_vars).flatten.join(', ')]
         basic_args = args.map do |x| 
           x.class.to_s[/Float|Fixnum|String|Array/] ? ("%s: %s" % [x.class, x_inspect(x)]) : nil
         end
@@ -45,7 +45,7 @@ class Carbolic
         $carbolic_log.debug line << basic_args.join(', ')
         r = yield
         label_vars = vars.map{|x| "%s: %s, " % [x,x_inspect(self.instance_variable_get(x))]}
-        line = "out, %s, " % ([a.first] + label_vars).flatten.join(', ')
+        line = "%s, out, %s, " % [self.class, ([a.first] + label_vars).flatten.join(', ')]
         line << "%s: %s" % [r.class, x_inspect(r)] if r.class.to_s[/Float|Fixnum|String|Array/] 
         $carbolic_log.debug line
         r
