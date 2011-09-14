@@ -2,6 +2,7 @@
 
 # file: carbolic.rb
 
+require 'logger'
 require 'rexle-builder'
 require 'rexle'
 
